@@ -4,258 +4,433 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Love Letter</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
-        /* CSS Styles */
         :root {
-            --primary-color: #d81b60;
-            --bg-color: #fff0f5;
-            --text-color: #5a3e45;
+            --primary: #be185d; /* Dark Pink/Red */
+            --light-pink: #fce7f3;
+            --bg-gradient: linear-gradient(to top, #fff0f5, #ffe4e6);
+            --text-main: #4a4a4a;
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Playfair Display', serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
             overflow-x: hidden;
-            text-align: center;
+            min-height: 100vh;
         }
 
-        /* Floating Hearts Background */
-        .heart-bg {
+        /* --- Floating Hearts Animation --- */
+        .hearts-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: -1;
+            z-index: 0;
             overflow: hidden;
         }
-        .heart-bg span {
+        .heart {
             position: absolute;
-            display: block;
-            width: 20px;
-            height: 20px;
-            background: rgba(255, 105, 180, 0.5);
-            animation: float 15s linear infinite;
-            bottom: -150px;
-            clip-path: path('M10 3.22C10 3.22 6.66 0 5 0 2.24 0 0 2.24 0 5c0 4 10 13 10 13s10-9 10-13c0-2.76-2.24-5-5-5-1.66 0-5 3.22-5 3.22z');
+            color: rgba(255, 182, 193, 0.6);
+            font-size: 20px;
+            animation: floatUp linear infinite;
+            bottom: -50px;
         }
-        @keyframes float {
+        @keyframes floatUp {
             0% { transform: translateY(0) rotate(0deg); opacity: 1; }
             100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
         }
 
-        /* Initial Hero Section */
-        #hero {
+        /* --- Hero Section (First Screen) --- */
+        #hero-section {
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            text-align: center;
             padding: 20px;
-            transition: opacity 1s ease;
+            position: relative;
+            z-index: 10;
+            transition: opacity 0.8s ease;
         }
 
-        h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 3.5rem;
-            color: var(--primary-color);
+        .title-small {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            color: #888;
             margin-bottom: 10px;
         }
 
-        .quote {
-            font-style: italic;
-            font-size: 1.1rem;
-            margin-bottom: 40px;
-            color: #88606b;
-        }
-
-        .btn {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 15px 40px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-family: 'Poppins', sans-serif;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
-            transition: transform 0.3s;
-        }
-        .btn:hover {
-            transform: scale(1.05);
-            background-color: #c2185b;
-        }
-
-        /* Main Content (Hidden Initially) */
-        #main-content {
-            display: none;
-            padding: 40px 20px;
-            max-width: 800px;
-            margin: 0 auto;
-            opacity: 0;
-            transition: opacity 1.5s ease;
-        }
-
-        .section-title {
+        .main-title {
             font-family: 'Dancing Script', cursive;
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin: 50px 0 30px;
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            line-height: 1.2;
         }
 
-        /* Letter Section */
-        .letter-container {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            margin-bottom: 50px;
-            position: relative;
-            border: 2px solid #ffebee;
+        .subtitle {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 40px;
         }
-        .letter-text {
+
+        .open-btn {
+            background: linear-gradient(45deg, #ec4899, #be185d);
+            color: white;
+            border: none;
+            padding: 15px 40px;
             font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(190, 24, 93, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .open-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 25px rgba(190, 24, 93, 0.4);
+        }
+
+        /* --- Main Content (Hidden Initially) --- */
+        #main-content {
+            display: none; /* Hidden by default */
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .section-header {
+            text-align: center;
+            margin: 40px 0 20px;
+            color: var(--primary);
+        }
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+        }
+        .section-header i { margin-right: 10px; }
+
+        /* Love Letter Card */
+        .letter-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #ffdde1;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        .letter-card::before {
+            content: '♥';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #ffdde1;
+            font-size: 20px;
+        }
+        .letter-card::after {
+            content: '♥';
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            color: #ffdde1;
+            font-size: 20px;
+        }
+        .typewriter-text {
+            font-size: 1.1rem;
             line-height: 1.8;
-            text-align: left;
-            min-height: 200px;
+            color: #444;
+            min-height: 150px;
         }
 
-        /* Memories Section */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        .gallery img {
-            width: 100%;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-        .gallery img:hover {
-            transform: scale(1.02);
-        }
-
-        /* Music Section */
-        .playlist {
+        /* Memories (Photo Cards) */
+        .memory-card {
             background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
         }
-        .song-reason {
-            text-align: left;
-            margin-top: 20px;
-            padding: 10px;
-            border-bottom: 1px dashed #ffcdd2;
+        .memory-img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
-        .song-reason i {
-            color: var(--primary-color);
-            margin-right: 10px;
+        .memory-info {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
+        .memory-text { font-size: 0.9rem; font-weight: 600; color: #555; }
+        .like-btn { color: #ccc; font-size: 1.5rem; cursor: pointer; transition: 0.3s; }
+        .like-btn.liked { color: #e91e63; animation: pop 0.3s ease; }
 
-        /* Footer */
-        footer {
-            margin-top: 50px;
+        @keyframes pop { 50% { transform: scale(1.4); } }
+
+        /* Spotify Style Player */
+        .spotify-card {
+            background: #191414; /* Spotify Dark */
+            color: white;
+            border-radius: 15px;
             padding: 20px;
-            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        .album-art {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            background-size: cover;
+            background-position: center;
+            /* Default Image */
+            background-image: url('https://i.scdn.co/image/ab67616d0000b2732a0d9b1580f555d787034177'); 
+        }
+        .track-info h4 { margin: 0; font-size: 1rem; }
+        .track-info p { margin: 5px 0 0; font-size: 0.8rem; color: #b3b3b3; }
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #535353;
+            border-radius: 2px;
+            margin-top: 10px;
+            position: relative;
+        }
+        .progress-fill {
+            width: 30%; /* Fake progress */
+            height: 100%;
+            background: #1db954; /* Spotify Green */
+            border-radius: 2px;
+        }
+        .controls { font-size: 1.5rem; margin-left: auto; color: white; }
+
+        /* Song List */
+        .song-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            transition: 0.2s;
+        }
+        .song-item:hover { transform: translateX(5px); }
+        .play-icon {
+            width: 40px;
+            height: 40px;
+            background: #fce7f3;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+        .song-details h5 { margin: 0; }
+        .song-details span { font-size: 0.8rem; color: var(--primary); font-style: italic; }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-bottom: 20px;
             color: #888;
+        }
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
 
-    <div class="heart-bg" id="hearts"></div>
+    <div class="hearts-container" id="hearts-bg"></div>
 
-    <div id="hero">
-        <div style="font-size: 4rem; color: #ff80ab;">💌</div>
-        <h1>A Special Message for My Love</h1>
-        <p class="quote">"Every love story is beautiful, but ours is my favorite."</p>
-        <button class="btn" onclick="openLetter()">Open Your Love Letter</button>
+    <div id="hero-section">
+        <div style="font-size: 3rem; margin-bottom: 20px; animation: pop 2s infinite;">💌</div>
+        <p class="title-small">A Special Message For</p>
+        <h1 class="main-title">My Love</h1>
+        <p class="subtitle">"Every love story is beautiful, but ours is my favorite"</p>
+        
+        <button class="open-btn" onclick="openLetter()">
+            <i class="fas fa-envelope-open-text"></i> Open Your Love Letter
+        </button>
     </div>
 
     <div id="main-content">
         
-        <h2 class="section-title">My Dearest Love,</h2>
-        <div class="letter-container">
-            <p id="typewriter" class="letter-text"></p>
+        <div class="section-header">
+            <h2><i class="fas fa-key"></i> My Love Letter</h2>
+            <p>Click the envelope to reveal your message</p>
+        </div>
+        <div class="letter-card">
+            <h3 style="font-family: 'Dancing Script'; color: var(--primary); margin-bottom: 10px;">My Dearest Love,</h3>
+            <p id="typewriter" class="typewriter-text"></p>
         </div>
 
-        <h2 class="section-title">📸 Our Memories 📸</h2>
-        <div class="gallery">
-            <img src="https://i.pinimg.com/736x/b6/2a/32/b62a32195df4a78cc363574c3d8242f3.jpg" alt="Memory 1">
-            <img src="https://i.pinimg.com/564x/23/e8/5a/23e85a538260c6f5d81b21245059d046.jpg" alt="Memory 2">
-            <img src="https://i.pinimg.com/564x/12/f6/45/12f645100097652496525946321.jpg" alt="Memory 3">
+        <div class="section-header">
+            <h2>📸 Our Memories 📸</h2>
         </div>
 
-        <h2 class="section-title">🎵 Our Songs 🎵</h2>
-        <div class="playlist">
-            <p>The melodies that remind me of you...</p>
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-            
-            <div class="song-reason">
-                <strong>▶️ Perfect - Ed Sheeran</strong><br>
-                <small>"Because you are perfect to me."</small>
+        <div class="memory-card">
+            <img src="https://i.pinimg.com/736x/1a/07/7f/1a077f3792015525281c7e997f70b224.jpg" alt="Couple 1" class="memory-img">
+            <div class="memory-info">
+                <span class="memory-text">Our first adventure together ❤️</span>
+                <i class="fas fa-heart like-btn" onclick="toggleLike(this)"></i>
             </div>
-            <div class="song-reason">
-                <strong>▶️ All of Me - John Legend</strong><br>
-                <small>"I love every part of you."</small>
+        </div>
+
+        <div class="memory-card">
+            <img src="https://i.pinimg.com/564x/e7/02/76/e70276669f69165684f09d4791321043.jpg" alt="Couple 2" class="memory-img">
+            <div class="memory-info">
+                <span class="memory-text">Summer 2023 ☀️</span>
+                <i class="fas fa-heart like-btn" onclick="toggleLike(this)"></i>
+            </div>
+        </div>
+
+        <div class="section-header">
+            <h2>🎵 Our Songs 🎵</h2>
+            <p style="font-size: 0.9rem;">The melodies that remind me of you...</p>
+        </div>
+
+        <div class="spotify-card">
+            <div class="album-art"></div>
+            <div class="track-info">
+                <h4>Timeless Love Songs</h4>
+                <p>Spotify</p>
+                <div class="progress-bar"><div class="progress-fill"></div></div>
+            </div>
+            <div class="controls">
+                <i class="fas fa-play-circle"></i>
+            </div>
+        </div>
+
+        <div class="song-list">
+            <div class="song-item">
+                <div class="play-icon"><i class="fas fa-play"></i></div>
+                <div class="song-details">
+                    <h5>Perfect - Ed Sheeran</h5>
+                    <span>"Because you are perfect to me"</span>
+                </div>
+            </div>
+            <div class="song-item">
+                <div class="play-icon"><i class="fas fa-play"></i></div>
+                <div class="song-details">
+                    <h5>All of Me - John Legend</h5>
+                    <span>"I love every part of you"</span>
+                </div>
+            </div>
+            <div class="song-item">
+                <div class="play-icon"><i class="fas fa-play"></i></div>
+                <div class="song-details">
+                    <h5>A Thousand Years</h5>
+                    <span>"I'd love you for a thousand more"</span>
+                </div>
             </div>
         </div>
 
         <footer>
-            <p>Forever & Always Yours ❤️ | Happy Valentine's Day</p>
+            <p>Happy Valentine's Day 2024</p>
+            <div class="signature">Forever yours, <br> [Your Name]</div>
         </footer>
+
     </div>
 
     <script>
-        // Floating Hearts Generator
+        // 1. Floating Hearts Generator
         function createHearts() {
-            const container = document.getElementById('hearts');
-            for(let i=0; i<15; i++) {
-                let heart = document.createElement('span');
+            const container = document.getElementById('hearts-bg');
+            const heartSymbols = ['♥', '💖', '💕', '💗']; // Various heart emojis
+            
+            setInterval(() => {
+                const heart = document.createElement('span');
+                heart.classList.add('heart');
+                heart.innerHTML = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
                 heart.style.left = Math.random() * 100 + 'vw';
                 heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
-                heart.style.opacity = Math.random();
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                
                 container.appendChild(heart);
-            }
+                
+                // Remove heart after animation to keep DOM clean
+                setTimeout(() => {
+                    heart.remove();
+                }, 10000);
+            }, 500);
         }
+        
         createHearts();
 
-        // Open Letter Function
+        // 2. Open Letter Action
         function openLetter() {
-            const hero = document.getElementById('hero');
+            const hero = document.getElementById('hero-section');
             const main = document.getElementById('main-content');
             
+            // Fade out Hero
             hero.style.opacity = '0';
+            
             setTimeout(() => {
                 hero.style.display = 'none';
                 main.style.display = 'block';
-                // Trigger reflow
-                void main.offsetWidth;
-                main.style.opacity = '1';
-                typeWriter();
-            }, 1000);
+                
+                // Small delay to trigger CSS transition
+                setTimeout(() => {
+                    main.style.opacity = '1';
+                    startTypewriter(); // Start typing only after section is visible
+                }, 50);
+            }, 800);
         }
 
-        // Typewriter Effect for Letter
-        // येथे तुमचे पत्र (Letter) लिहा:
-        const text = "From the moment I met you, my world changed in the most beautiful way. Every day with you feels like a gift I never knew I needed. Your smile lights up my darkest days, and your laughter is the sweetest melody I've ever heard. Thank you for loving me, for choosing me, and for being you. Happy Valentine's Day, my love! \n\nForever yours,\n[Your Name]";
+        // 3. Typewriter Effect
+        // येथे तुमचे पत्र (Letter) एडिट करा:
+        const message = "From the moment I met you, my world changed in the most beautiful way. Every day with you feels like a gift I never knew I needed. Your smile lights up my darkest days, your laughter is the sweetest melody I've ever heard. \n\nI love the way you scrunch your nose when you laugh, how you always know exactly what to say, and how your presence makes everything feel right. \n\nYou are my best friend, my soulmate, my everything.";
         
+        const speed = 40; // Typing speed in milliseconds
         let i = 0;
-        const speed = 50; // typing speed
 
-        function typeWriter() {
-            if (i < text.length) {
-                document.getElementById("typewriter").innerHTML += text.charAt(i) === '\n' ? '<br>' : text.charAt(i);
-                i++;
-                setTimeout(typeWriter, speed);
+        function startTypewriter() {
+            const element = document.getElementById("typewriter");
+            // Clear previous text just in case
+            element.innerHTML = "";
+            
+            function type() {
+                if (i < message.length) {
+                    // Check for new line characters
+                    if (message.charAt(i) === '\n') {
+                        element.innerHTML += '<br>';
+                    } else {
+                        element.innerHTML += message.charAt(i);
+                    }
+                    i++;
+                    setTimeout(type, speed);
+                }
             }
+            type();
+        }
+
+        // 4. Like Button Toggle
+        function toggleLike(btn) {
+            btn.classList.toggle('liked');
         }
     </script>
 </body>
