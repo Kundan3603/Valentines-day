@@ -4,433 +4,294 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Love Letter</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,600;1,600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
         :root {
-            --primary: #be185d; /* Dark Pink/Red */
-            --light-pink: #fce7f3;
-            --bg-gradient: linear-gradient(to top, #fff0f5, #ffe4e6);
-            --text-main: #4a4a4a;
+            --primary: #d81b60;
+            --bg-color: #fff0f5;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background: var(--bg-gradient);
-            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            font-family: 'Playfair Display', serif;
+            background-color: var(--bg-color);
+            color: #4a4a4a;
             overflow-x: hidden;
-            min-height: 100vh;
+            text-align: center;
         }
 
-        /* --- Floating Hearts Animation --- */
-        .hearts-container {
+        /* 1. Background Animation */
+        .hearts-bg {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: -1;
         }
         .heart {
             position: absolute;
-            color: rgba(255, 182, 193, 0.6);
+            color: rgba(216, 27, 96, 0.3);
             font-size: 20px;
-            animation: floatUp linear infinite;
-            bottom: -50px;
+            animation: floatUp 10s linear infinite;
         }
         @keyframes floatUp {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+            to { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
         }
 
-        /* --- Hero Section (First Screen) --- */
-        #hero-section {
+        /* 2. Step 1: Hero Section */
+        #step1-hero {
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            padding: 20px;
-            position: relative;
-            z-index: 10;
-            transition: opacity 0.8s ease;
+            transition: opacity 0.8s;
         }
-
-        .title-small {
-            font-family: 'Playfair Display', serif;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            color: #888;
-            margin-bottom: 10px;
-        }
-
-        .main-title {
+        .hero-title {
             font-family: 'Dancing Script', cursive;
-            font-size: 4rem;
+            font-size: 3.5rem;
             color: var(--primary);
-            margin-bottom: 10px;
-            line-height: 1.2;
-        }
-
-        .subtitle {
-            font-style: italic;
-            color: #666;
-            margin-bottom: 40px;
-        }
-
-        .open-btn {
-            background: linear-gradient(45deg, #ec4899, #be185d);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(190, 24, 93, 0.3);
-            transition: transform 0.3s, box-shadow 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .open-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 25px rgba(190, 24, 93, 0.4);
-        }
-
-        /* --- Main Content (Hidden Initially) --- */
-        #main-content {
-            display: none; /* Hidden by default */
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            position: relative;
-            z-index: 10;
-            opacity: 0;
-            transition: opacity 1s ease;
-        }
-
-        .section-header {
-            text-align: center;
-            margin: 40px 0 20px;
-            color: var(--primary);
-        }
-        .section-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-        }
-        .section-header i { margin-right: 10px; }
-
-        /* Love Letter Card */
-        .letter-card {
-            background: #fff;
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid #ffdde1;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            position: relative;
-        }
-        .letter-card::before {
-            content: '♥';
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            color: #ffdde1;
-            font-size: 20px;
-        }
-        .letter-card::after {
-            content: '♥';
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            color: #ffdde1;
-            font-size: 20px;
-        }
-        .typewriter-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #444;
-            min-height: 150px;
-        }
-
-        /* Memories (Photo Cards) */
-        .memory-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            margin-bottom: 30px;
-        }
-        .memory-img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        .memory-info {
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .memory-text { font-size: 0.9rem; font-weight: 600; color: #555; }
-        .like-btn { color: #ccc; font-size: 1.5rem; cursor: pointer; transition: 0.3s; }
-        .like-btn.liked { color: #e91e63; animation: pop 0.3s ease; }
-
-        @keyframes pop { 50% { transform: scale(1.4); } }
-
-        /* Spotify Style Player */
-        .spotify-card {
-            background: #191414; /* Spotify Dark */
-            color: white;
-            border-radius: 15px;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             margin-bottom: 20px;
         }
-        .album-art {
-            width: 80px;
-            height: 80px;
-            border-radius: 10px;
-            background-size: cover;
-            background-position: center;
-            /* Default Image */
-            background-image: url('https://i.scdn.co/image/ab67616d0000b2732a0d9b1580f555d787034177'); 
+        .start-btn {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(216,27,96,0.4);
+            transition: transform 0.3s;
         }
-        .track-info h4 { margin: 0; font-size: 1rem; }
-        .track-info p { margin: 5px 0 0; font-size: 0.8rem; color: #b3b3b3; }
-        .progress-bar {
-            width: 100%;
-            height: 4px;
-            background: #535353;
-            border-radius: 2px;
-            margin-top: 10px;
-            position: relative;
-        }
-        .progress-fill {
-            width: 30%; /* Fake progress */
-            height: 100%;
-            background: #1db954; /* Spotify Green */
-            border-radius: 2px;
-        }
-        .controls { font-size: 1.5rem; margin-left: auto; color: white; }
+        .start-btn:hover { transform: scale(1.1); }
 
-        /* Song List */
-        .song-item {
-            display: flex;
+        /* 3. Step 2: Envelope Section (Hidden initially) */
+        #step2-envelope {
+            display: none;
+            height: 100vh;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            gap: 15px;
-            padding: 10px;
-            background: white;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            transition: 0.2s;
+            animation: fadeIn 1s;
         }
-        .song-item:hover { transform: translateX(5px); }
-        .play-icon {
+        
+        /* CSS Envelope Design */
+        .envelope-wrapper {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background: #ff8fa3;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .envelope-wrapper:hover { transform: scale(1.05); }
+        
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-top: 110px solid #ff5c8d; /* Flap color */
+            transform-origin: top;
+            transition: transform 0.6s;
+            z-index: 5;
+        }
+        .envelope-body {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 150px solid #ff7eb3;
+            border-right: 150px solid #ff7eb3;
+            border-bottom: 100px solid #ff477e;
+            z-index: 4;
+        }
+        .seal {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
             width: 40px;
             height: 40px;
-            background: #fce7f3;
+            background: #d81b60;
             border-radius: 50%;
+            z-index: 6;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--primary);
+            color: white;
+            font-size: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-        .song-details h5 { margin: 0; }
-        .song-details span { font-size: 0.8rem; color: var(--primary); font-style: italic; }
-
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            padding-bottom: 20px;
+        
+        .click-hint {
+            margin-top: 30px;
+            font-family: 'Poppins', sans-serif;
             color: #888;
+            animation: bounce 2s infinite;
         }
-        .signature {
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.5rem;
-            color: var(--primary);
-            margin-top: 10px;
+
+        /* 4. Step 3: Main Letter Content */
+        #step3-content {
+            display: none;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            opacity: 0;
+            transition: opacity 1s;
         }
+
+        /* Letter Styling */
+        .paper {
+            background: #fff;
+            padding: 40px;
+            border: 1px solid #ddd;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            margin-bottom: 50px;
+        }
+        .paper::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 5px;
+            background: repeating-linear-gradient(45deg, #d81b60, #d81b60 10px, #fff 10px, #fff 20px);
+        }
+        .typewriter {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            text-align: left;
+            min-height: 150px;
+        }
+
+        /* Other Sections */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .gallery img { width: 100%; border-radius: 10px; box-shadow: 0 5px 10px rgba(0,0,0,0.1); }
+        
+        .music-box {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <div class="hearts-container" id="hearts-bg"></div>
+    <div class="hearts-bg" id="hearts"></div>
 
-    <div id="hero-section">
-        <div style="font-size: 3rem; margin-bottom: 20px; animation: pop 2s infinite;">💌</div>
-        <p class="title-small">A Special Message For</p>
-        <h1 class="main-title">My Love</h1>
-        <p class="subtitle">"Every love story is beautiful, but ours is my favorite"</p>
-        
-        <button class="open-btn" onclick="openLetter()">
-            <i class="fas fa-envelope-open-text"></i> Open Your Love Letter
-        </button>
+    <div id="step1-hero">
+        <h1 class="hero-title">A Special Surprise For You</h1>
+        <button class="start-btn" onclick="goToEnvelope()">Open Your Gift 🎁</button>
     </div>
 
-    <div id="main-content">
+    <div id="step2-envelope">
+        <div class="envelope-wrapper" onclick="openEnvelope()">
+            <div class="envelope-flap" id="flap"></div>
+            <div class="seal"><i class="fas fa-heart"></i></div>
+            <div class="envelope-body"></div>
+        </div>
+        <p class="click-hint">Tap the envelope to open</p>
+    </div>
+
+    <div id="step3-content">
+        <h2 style="font-family: 'Dancing Script'; font-size: 2.5rem; color: var(--primary);">My Dearest Love,</h2>
         
-        <div class="section-header">
-            <h2><i class="fas fa-key"></i> My Love Letter</h2>
-            <p>Click the envelope to reveal your message</p>
-        </div>
-        <div class="letter-card">
-            <h3 style="font-family: 'Dancing Script'; color: var(--primary); margin-bottom: 10px;">My Dearest Love,</h3>
-            <p id="typewriter" class="typewriter-text"></p>
+        <div class="paper">
+            <p id="letter-text" class="typewriter"></p>
         </div>
 
-        <div class="section-header">
-            <h2>📸 Our Memories 📸</h2>
+        <h3>📸 Our Memories</h3>
+        <div class="gallery">
+            <img src="https://i.pinimg.com/736x/b6/2a/32/b62a32195df4a78cc363574c3d8242f3.jpg">
+            <img src="https://i.pinimg.com/564x/23/e8/5a/23e85a538260c6f5d81b21245059d046.jpg">
         </div>
 
-        <div class="memory-card">
-            <img src="https://i.pinimg.com/736x/1a/07/7f/1a077f3792015525281c7e997f70b224.jpg" alt="Couple 1" class="memory-img">
-            <div class="memory-info">
-                <span class="memory-text">Our first adventure together ❤️</span>
-                <i class="fas fa-heart like-btn" onclick="toggleLike(this)"></i>
-            </div>
+        <div class="music-box">
+            <h3>🎵 Our Song</h3>
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2858LRfA8pYjRj720e5V8C?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
         </div>
 
-        <div class="memory-card">
-            <img src="https://i.pinimg.com/564x/e7/02/76/e70276669f69165684f09d4791321043.jpg" alt="Couple 2" class="memory-img">
-            <div class="memory-info">
-                <span class="memory-text">Summer 2023 ☀️</span>
-                <i class="fas fa-heart like-btn" onclick="toggleLike(this)"></i>
-            </div>
-        </div>
-
-        <div class="section-header">
-            <h2>🎵 Our Songs 🎵</h2>
-            <p style="font-size: 0.9rem;">The melodies that remind me of you...</p>
-        </div>
-
-        <div class="spotify-card">
-            <div class="album-art"></div>
-            <div class="track-info">
-                <h4>Timeless Love Songs</h4>
-                <p>Spotify</p>
-                <div class="progress-bar"><div class="progress-fill"></div></div>
-            </div>
-            <div class="controls">
-                <i class="fas fa-play-circle"></i>
-            </div>
-        </div>
-
-        <div class="song-list">
-            <div class="song-item">
-                <div class="play-icon"><i class="fas fa-play"></i></div>
-                <div class="song-details">
-                    <h5>Perfect - Ed Sheeran</h5>
-                    <span>"Because you are perfect to me"</span>
-                </div>
-            </div>
-            <div class="song-item">
-                <div class="play-icon"><i class="fas fa-play"></i></div>
-                <div class="song-details">
-                    <h5>All of Me - John Legend</h5>
-                    <span>"I love every part of you"</span>
-                </div>
-            </div>
-            <div class="song-item">
-                <div class="play-icon"><i class="fas fa-play"></i></div>
-                <div class="song-details">
-                    <h5>A Thousand Years</h5>
-                    <span>"I'd love you for a thousand more"</span>
-                </div>
-            </div>
-        </div>
-
-        <footer>
-            <p>Happy Valentine's Day 2024</p>
-            <div class="signature">Forever yours, <br> [Your Name]</div>
+        <footer style="margin-top: 50px; color: #888;">
+            <p>Forever Yours ❤️</p>
         </footer>
-
     </div>
 
     <script>
-        // 1. Floating Hearts Generator
+        // 1. Background Hearts
         function createHearts() {
-            const container = document.getElementById('hearts-bg');
-            const heartSymbols = ['♥', '💖', '💕', '💗']; // Various heart emojis
-            
-            setInterval(() => {
-                const heart = document.createElement('span');
-                heart.classList.add('heart');
-                heart.innerHTML = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+            const container = document.getElementById('hearts');
+            for(let i=0; i<15; i++) {
+                let heart = document.createElement('span');
+                heart.className = 'heart';
+                heart.innerHTML = '❤';
                 heart.style.left = Math.random() * 100 + 'vw';
                 heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
-                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-                
                 container.appendChild(heart);
-                
-                // Remove heart after animation to keep DOM clean
-                setTimeout(() => {
-                    heart.remove();
-                }, 10000);
-            }, 500);
+            }
         }
-        
         createHearts();
 
-        // 2. Open Letter Action
-        function openLetter() {
-            const hero = document.getElementById('hero-section');
-            const main = document.getElementById('main-content');
+        // 2. Go to Envelope Step
+        function goToEnvelope() {
+            document.getElementById('step1-hero').style.display = 'none';
+            const envSection = document.getElementById('step2-envelope');
+            envSection.style.display = 'flex';
+        }
+
+        // 3. Open Envelope & Show Letter
+        function openEnvelope() {
+            const flap = document.getElementById('flap');
+            const envSection = document.getElementById('step2-envelope');
+            const contentSection = document.getElementById('step3-content');
             
-            // Fade out Hero
-            hero.style.opacity = '0';
-            
+            // Flap animation
+            flap.style.transform = 'rotateX(180deg)';
+            flap.style.zIndex = '1';
+
+            // Wait for flap animation, then transition
             setTimeout(() => {
-                hero.style.display = 'none';
-                main.style.display = 'block';
-                
-                // Small delay to trigger CSS transition
+                envSection.style.opacity = '0';
                 setTimeout(() => {
-                    main.style.opacity = '1';
-                    startTypewriter(); // Start typing only after section is visible
-                }, 50);
+                    envSection.style.display = 'none';
+                    contentSection.style.display = 'block';
+                    
+                    setTimeout(() => {
+                        contentSection.style.opacity = '1';
+                        startTyping(); // Start typing only after letter is visible
+                    }, 100);
+                }, 500);
             }, 800);
         }
 
-        // 3. Typewriter Effect
-        // येथे तुमचे पत्र (Letter) एडिट करा:
-        const message = "From the moment I met you, my world changed in the most beautiful way. Every day with you feels like a gift I never knew I needed. Your smile lights up my darkest days, your laughter is the sweetest melody I've ever heard. \n\nI love the way you scrunch your nose when you laugh, how you always know exactly what to say, and how your presence makes everything feel right. \n\nYou are my best friend, my soulmate, my everything.";
+        // 4. Typewriter Effect
+        // येथे तुमचे पत्र (Message) बदला:
+        const message = "From the moment I met you, my world changed in the most beautiful way. You are my happiness, my safe place, and my greatest adventure. \n\nI love your smile, your kindness, and the way you make everything better just by being there. Thank you for being mine. \n\nHappy Valentine's Day! ❤️";
         
-        const speed = 40; // Typing speed in milliseconds
         let i = 0;
+        const speed = 40;
 
-        function startTypewriter() {
-            const element = document.getElementById("typewriter");
-            // Clear previous text just in case
-            element.innerHTML = "";
-            
-            function type() {
-                if (i < message.length) {
-                    // Check for new line characters
-                    if (message.charAt(i) === '\n') {
-                        element.innerHTML += '<br>';
-                    } else {
-                        element.innerHTML += message.charAt(i);
-                    }
-                    i++;
-                    setTimeout(type, speed);
-                }
+        function startTyping() {
+            const element = document.getElementById("letter-text");
+            if (i < message.length) {
+                element.innerHTML += message.charAt(i) === '\n' ? '<br>' : message.charAt(i);
+                i++;
+                setTimeout(startTyping, speed);
             }
-            type();
-        }
-
-        // 4. Like Button Toggle
-        function toggleLike(btn) {
-            btn.classList.toggle('liked');
         }
     </script>
 </body>
