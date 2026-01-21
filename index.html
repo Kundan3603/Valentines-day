@@ -3,136 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Will You Be My Valentine?</title>
+    <title>My Love Letter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
     <style>
-        /* CSS: वेबसाइटची डिझाइन */
-        body {
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #fce4ec; /* फिकट गुलाबी बॅकग्राउंड */
-            overflow: hidden; /* बटण मोठे झाल्यावर स्क्रोल बार येऊ नये म्हणून */
+        /* CSS Styles */
+        :root {
+            --primary-color: #d81b60;
+            --bg-color: #fff0f5;
+            --text-color: #5a3e45;
         }
 
-        .container {
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Playfair Display', serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
             text-align: center;
-            position: relative;
+        }
+
+        /* Floating Hearts Background */
+        .heart-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .heart-bg span {
+            position: absolute;
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 105, 180, 0.5);
+            animation: float 15s linear infinite;
+            bottom: -150px;
+            clip-path: path('M10 3.22C10 3.22 6.66 0 5 0 2.24 0 0 2.24 0 5c0 4 10 13 10 13s10-9 10-13c0-2.76-2.24-5-5-5-1.66 0-5 3.22-5 3.22z');
+        }
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Initial Hero Section */
+        #hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            transition: opacity 1s ease;
         }
 
         h1 {
-            font-size: 2.5rem;
-            color: #d32f2f;
-            margin-bottom: 20px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
         }
 
-        img {
-            max-width: 300px;
-            height: auto;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        .buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            align-items: center;
-            flex-wrap: wrap;
+        .quote {
+            font-style: italic;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            color: #88606b;
         }
 
         .btn {
-            padding: 10px 20px;
-            font-size: 1.2rem;
-            font-weight: bold;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 40px;
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-family: 'Poppins', sans-serif;
             cursor: pointer;
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
+            transition: transform 0.3s;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+            background-color: #c2185b;
         }
 
-        .yes-btn {
-            background-color: #4caf50; /* हिरवा रंग */
-            color: white;
+        /* Main Content (Hidden Initially) */
+        #main-content {
+            display: none;
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0;
+            transition: opacity 1.5s ease;
         }
 
-        .yes-btn:hover {
-            background-color: #45a049;
+        .section-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin: 50px 0 30px;
         }
 
-        .no-btn {
-            background-color: #f44336; /* लाल रंग */
-            color: white;
+        /* Letter Section */
+        .letter-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 50px;
+            position: relative;
+            border: 2px solid #ffebee;
+        }
+        .letter-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            text-align: left;
+            min-height: 200px;
         }
 
-        .no-btn:hover {
-            background-color: #d32f2f;
+        /* Memories Section */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .gallery img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .gallery img:hover {
+            transform: scale(1.02);
+        }
+
+        /* Music Section */
+        .playlist {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .song-reason {
+            text-align: left;
+            margin-top: 20px;
+            padding: 10px;
+            border-bottom: 1px dashed #ffcdd2;
+        }
+        .song-reason i {
+            color: var(--primary-color);
+            margin-right: 10px;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 50px;
+            padding: 20px;
+            font-size: 0.9rem;
+            color: #888;
         }
     </style>
 </head>
 <body>
 
-    <div class="container" id="mainContainer">
-        <img id="gifImage" src="https://gifdb.com/images/high/cute-love-bear-roses-ou7zho5oosxnpo6k.gif" alt="Cute Bear">
+    <div class="heart-bg" id="hearts"></div>
+
+    <div id="hero">
+        <div style="font-size: 4rem; color: #ff80ab;">💌</div>
+        <h1>A Special Message for My Love</h1>
+        <p class="quote">"Every love story is beautiful, but ours is my favorite."</p>
+        <button class="btn" onclick="openLetter()">Open Your Love Letter</button>
+    </div>
+
+    <div id="main-content">
         
-        <h1 id="questionText">Will you be my Valentine?</h1>
-        
-        <div class="buttons">
-            <button class="btn yes-btn" id="yesBtn" onclick="handleYes()">Yes</button>
-            <button class="btn no-btn" id="noBtn" onclick="handleNo()">No</button>
+        <h2 class="section-title">My Dearest Love,</h2>
+        <div class="letter-container">
+            <p id="typewriter" class="letter-text"></p>
         </div>
+
+        <h2 class="section-title">📸 Our Memories 📸</h2>
+        <div class="gallery">
+            <img src="https://i.pinimg.com/736x/b6/2a/32/b62a32195df4a78cc363574c3d8242f3.jpg" alt="Memory 1">
+            <img src="https://i.pinimg.com/564x/23/e8/5a/23e85a538260c6f5d81b21245059d046.jpg" alt="Memory 2">
+            <img src="https://i.pinimg.com/564x/12/f6/45/12f645100097652496525946321.jpg" alt="Memory 3">
+        </div>
+
+        <h2 class="section-title">🎵 Our Songs 🎵</h2>
+        <div class="playlist">
+            <p>The melodies that remind me of you...</p>
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            
+            <div class="song-reason">
+                <strong>▶️ Perfect - Ed Sheeran</strong><br>
+                <small>"Because you are perfect to me."</small>
+            </div>
+            <div class="song-reason">
+                <strong>▶️ All of Me - John Legend</strong><br>
+                <small>"I love every part of you."</small>
+            </div>
+        </div>
+
+        <footer>
+            <p>Forever & Always Yours ❤️ | Happy Valentine's Day</p>
+        </footer>
     </div>
 
     <script>
-        // JavaScript: वेबसाइटचे लॉजिक
+        // Floating Hearts Generator
+        function createHearts() {
+            const container = document.getElementById('hearts');
+            for(let i=0; i<15; i++) {
+                let heart = document.createElement('span');
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                heart.style.opacity = Math.random();
+                container.appendChild(heart);
+            }
+        }
+        createHearts();
 
-        let noClickCount = 0;
-        const yesBtn = document.getElementById('yesBtn');
-        const noBtn = document.getElementById('noBtn');
-        const questionText = document.getElementById('questionText');
-        const gifImage = document.getElementById('gifImage');
-        const mainContainer = document.getElementById('mainContainer');
-
-        // 'No' बटणावर दिसणारे मजकूर (तुम्ही हे बदलू शकता)
-        const phrases = [
-            "No",
-            "Are you sure?",
-            "Really sure?",
-            "Think again!",
-            "Last chance!",
-            "Surely not?",
-            "You might regret this!",
-            "Give it another thought!",
-            "Are you absolutely certain?",
-            "This could be a mistake!",
-            "Have a heart!",
-            "Don't be so cold!",
-            "Change of heart?",
-            "Wouldn't you reconsider?",
-            "Is that your final answer?",
-            "You're breaking my heart ;("
-        ];
-
-        function handleNo() {
-            noClickCount++;
+        // Open Letter Function
+        function openLetter() {
+            const hero = document.getElementById('hero');
+            const main = document.getElementById('main-content');
             
-            // 'No' बटणाचा मजकूर बदलणे
-            const phraseIndex = Math.min(noClickCount, phrases.length - 1);
-            noBtn.innerText = phrases[phraseIndex];
-
-            // 'Yes' बटणाचा आकार वाढवणे (प्रत्येक क्लिकवर मोठे होईल)
-            const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
-            yesBtn.style.fontSize = (currentSize * 1.5) + "px";
+            hero.style.opacity = '0';
+            setTimeout(() => {
+                hero.style.display = 'none';
+                main.style.display = 'block';
+                // Trigger reflow
+                void main.offsetWidth;
+                main.style.opacity = '1';
+                typeWriter();
+            }, 1000);
         }
 
-        function handleYes() {
-            // 'Yes' दाबल्यावर स्क्रीन बदलणे
-            mainContainer.innerHTML = `
-                <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" alt="Kisses" style="max-width: 300px;">
-                <h1 style="font-size: 3rem; color: #d32f2f;">Ok yay!!! ❤️</h1>
-            `;
+        // Typewriter Effect for Letter
+        // येथे तुमचे पत्र (Letter) लिहा:
+        const text = "From the moment I met you, my world changed in the most beautiful way. Every day with you feels like a gift I never knew I needed. Your smile lights up my darkest days, and your laughter is the sweetest melody I've ever heard. Thank you for loving me, for choosing me, and for being you. Happy Valentine's Day, my love! \n\nForever yours,\n[Your Name]";
+        
+        let i = 0;
+        const speed = 50; // typing speed
+
+        function typeWriter() {
+            if (i < text.length) {
+                document.getElementById("typewriter").innerHTML += text.charAt(i) === '\n' ? '<br>' : text.charAt(i);
+                i++;
+                setTimeout(typeWriter, speed);
+            }
         }
     </script>
 </body>
