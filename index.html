@@ -1,19 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="stylesheet" href="style.css" />
-  <title>Happy Diwali</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <style>
+        /* CSS: वेबसाइटची डिझाइन */
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #fce4ec; /* फिकट गुलाबी बॅकग्राउंड */
+            overflow: hidden; /* बटण मोठे झाल्यावर स्क्रोल बार येऊ नये म्हणून */
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #d32f2f;
+            margin-bottom: 20px;
+        }
+
+        img {
+            max-width: 300px;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .yes-btn {
+            background-color: #4caf50; /* हिरवा रंग */
+            color: white;
+        }
+
+        .yes-btn:hover {
+            background-color: #45a049;
+        }
+
+        .no-btn {
+            background-color: #f44336; /* लाल रंग */
+            color: white;
+        }
+
+        .no-btn:hover {
+            background-color: #d32f2f;
+        }
+    </style>
 </head>
 <body>
-  <canvas id="c" aria-label="Diwali animation"></canvas>
 
-  <p>
-    <a href="#" target="_blank">Happy Diwali ✨</a>
-    <span>• Made with ❤️</span>
-  </p>
+    <div class="container" id="mainContainer">
+        <img id="gifImage" src="https://gifdb.com/images/high/cute-love-bear-roses-ou7zho5oosxnpo6k.gif" alt="Cute Bear">
+        
+        <h1 id="questionText">Will you be my Valentine?</h1>
+        
+        <div class="buttons">
+            <button class="btn yes-btn" id="yesBtn" onclick="handleYes()">Yes</button>
+            <button class="btn no-btn" id="noBtn" onclick="handleNo()">No</button>
+        </div>
+    </div>
 
-  <script src="script.js"></script>
+    <script>
+        // JavaScript: वेबसाइटचे लॉजिक
+
+        let noClickCount = 0;
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const questionText = document.getElementById('questionText');
+        const gifImage = document.getElementById('gifImage');
+        const mainContainer = document.getElementById('mainContainer');
+
+        // 'No' बटणावर दिसणारे मजकूर (तुम्ही हे बदलू शकता)
+        const phrases = [
+            "No",
+            "Are you sure?",
+            "Really sure?",
+            "Think again!",
+            "Last chance!",
+            "Surely not?",
+            "You might regret this!",
+            "Give it another thought!",
+            "Are you absolutely certain?",
+            "This could be a mistake!",
+            "Have a heart!",
+            "Don't be so cold!",
+            "Change of heart?",
+            "Wouldn't you reconsider?",
+            "Is that your final answer?",
+            "You're breaking my heart ;("
+        ];
+
+        function handleNo() {
+            noClickCount++;
+            
+            // 'No' बटणाचा मजकूर बदलणे
+            const phraseIndex = Math.min(noClickCount, phrases.length - 1);
+            noBtn.innerText = phrases[phraseIndex];
+
+            // 'Yes' बटणाचा आकार वाढवणे (प्रत्येक क्लिकवर मोठे होईल)
+            const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+            yesBtn.style.fontSize = (currentSize * 1.5) + "px";
+        }
+
+        function handleYes() {
+            // 'Yes' दाबल्यावर स्क्रीन बदलणे
+            mainContainer.innerHTML = `
+                <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" alt="Kisses" style="max-width: 300px;">
+                <h1 style="font-size: 3rem; color: #d32f2f;">Ok yay!!! ❤️</h1>
+            `;
+        }
+    </script>
 </body>
 </html>
